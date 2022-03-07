@@ -13,11 +13,16 @@
 
 let userInput = document.getElementById("user-input");
 let addButton = document.getElementById("add-Button");
+let tabs = document.querySelectorAll(".task-tap div");
 let taskList = []
-
+let mode = 'all'
+let filterList = []
 
 addButton.addEventListener("click", addTask)
 
+for(let i=1; i<tabs.length; i++){
+    tabs[i].addEventListener("click", function(event){filter(event)})
+};
  
 function addTask(){
     let task = {
@@ -31,16 +36,34 @@ function addTask(){
 }
 
 function render() {
+    let list = [];
+    if(mode == "all") {
+        list = taskList;
+    }else if(mode == "ongoing" || mode == "done"){
+        list = filterList;
+    }
     let resultHTML = "";
-    for (let i = 0; i < taskList.length; i++){
-        resultHTML += 
-        `<div class="task-tap-user">
-        <div>${taskList[i].taskContent}</div> 
-        <div>
-        <button onclick="toggleComplete('${taskList[i].id}')">완료</button>
-        <button>삭제</button>
-        </div>
-        </div>`
+    for (let i = 0; i < list.length; i++){
+        if(list[i].isComplete == true) {
+            resultHTML += 
+            `<div class="task-tap-user">
+            <div class="task-done">${list[i].taskContent}</div> 
+            <div>
+            <button onclick="toggleComplete('${list[i].id}')">완료</button>
+            <button onclick="taskComplete('${list[i].id}')">삭제</button>
+            </div>
+            </div>`    
+        }else {
+            resultHTML += 
+            `<div class="task-tap-user">
+            <div>${list[i].taskContent}</div> 
+            <div>
+            <button onclick="toggleComplete('${list[i].id}')">완료</button>
+            <button onclick="taskComplete('${list[i].id}')">삭제</button>
+            </div>
+            </div>`
+        }
+
     }
 
     document.getElementById("task-board").innerHTML = resultHTML;
@@ -49,13 +72,48 @@ function render() {
 function toggleComplete(id){
     for(let i =0; i < taskList.length; i++){
         if(taskList[i].id == id){
-            taskList[i].isComplete = true
+            taskList[i].isComplete = !taskList[i].isComplete;
             break;
         }
     }
+    render();
     console.log(taskList);
 }
 
 function randomIDGenerate(){
     return '_' + Math.random().toString(36).substr(2, 9);
 }
+
+function taskComplete(id){
+    for(let i =0; i < taskList.length; i++){
+        if(taskList[i].id == id){
+            taskList.splice(i,1)
+            break;
+        }
+    }
+    render();
+}
+
+function filter(event){
+    mode = event.target.id;
+    filterList = []
+    if (mode == "all"){
+        render();
+    } else if(mode == "ongoing"){
+        for (let i = 0; i < taskList.length; i++){
+            if (taskList[i].isComplete == false){
+                filterList.push(taskList[i]);
+            }
+        }
+        render();
+    } else if(mode =="done"){
+        for (let i = 0; i<taskList.length;i++){
+            if(taskList[i].isComplete == true){
+                filterList.push(taskList[i])
+            }
+        }
+        render();
+    }
+    console.log(filterList);
+}
+
