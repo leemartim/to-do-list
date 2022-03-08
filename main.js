@@ -19,14 +19,23 @@ let mode = 'all'
 let filterList = []
 let horizontalBar = document.getElementById("under-line")
 let horizontalMenu = document.querySelectorAll(".task-tap div")
+let list = []
 
-addButton.addEventListener("click", addTask)
+addButton.addEventListener("click", function(){
+    addTask()
+    userInput.value = "";
+})
 
-document.querySelector('#user-input').addEventListener("keyup", (e)=>{
-    if (e.keyCode === 13) {
-        addTask()
-  }  
+document.querySelector('#user-input').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      addTask()
+      userInput.value = "";
+    }
 });
+
+userInput.addEventListener("focus", function(){
+    userInput.value = "";
+})
 
 for(let i=1; i<tabs.length; i++){
     tabs[i].addEventListener("click", function(event){filter(event)})
@@ -53,7 +62,7 @@ function addTask(){
 }
 
 function render() {
-    let list = [];
+    list = [];
     if(mode == "all") {
         list = taskList;
     }else if(mode == "ongoing" || mode == "done"){
@@ -103,6 +112,7 @@ function randomIDGenerate(){
 
 function taskComplete(id){
     for(let i =0; i < taskList.length; i++){
+        
         if(taskList[i].id == id){
             taskList.splice(i,1)
             break;
