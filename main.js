@@ -17,11 +17,28 @@ let tabs = document.querySelectorAll(".task-tap div");
 let taskList = []
 let mode = 'all'
 let filterList = []
+let horizontalBar = document.getElementById("under-line")
+let horizontalMenu = document.querySelectorAll(".task-tap div")
 
 addButton.addEventListener("click", addTask)
 
+document.querySelector('#user-input').addEventListener("keyup", (e)=>{
+    if (e.keyCode === 13) {
+        addTask()
+  }  
+});
+
 for(let i=1; i<tabs.length; i++){
     tabs[i].addEventListener("click", function(event){filter(event)})
+};
+
+horizontalMenu.forEach((menu) =>
+    menu.addEventListener("click", (e) => horizontalIndicator(e.currentTarget)));
+
+function horizontalIndicator(e) {
+    horizontalBar.style.left = e.offsetLeft + -10 +"px";
+    horizontalBar.style.width = e.offsetWidth + 3 + "px";
+    horizontalBar.style.top = e.offsetTop + e.offsetHeight + 6 + "px";
 };
  
 function addTask(){

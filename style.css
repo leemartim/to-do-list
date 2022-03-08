@@ -15,10 +15,11 @@ body {
     height: 4px;
     background-color: blue;
     position: absolute;
-    width: 70px;
+    width: 61px;
     left: 0px;
     top: 60px;
     padding: 0px;
+    transition: 0.5s;
 }
 
 .main {
