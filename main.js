@@ -29,7 +29,7 @@ addButton.addEventListener("click", function(){
 document.querySelector('#user-input').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
       addTask()
-      userInput.value = "";
+      userInput.value = ""; 
     }
 });
 
