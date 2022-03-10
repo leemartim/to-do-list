@@ -56,9 +56,22 @@ body {
 
 .task-done {
     text-decoration: line-through;
-    background-color: skyblue;
 }
 
 .task-tap div {
     cursor: pointer;
+}
+
+button {
+    border-radius: 5px;
+    background-color: skyblue;
+}
+
+input {
+    width: 250px;
+    height: 50px;
+}
+
+.fas fa-ban fa-2x {
+    background-color: red;
 }

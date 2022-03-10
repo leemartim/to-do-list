@@ -75,17 +75,17 @@ function render() {
             `<div class="task-tap-user">
             <div class="task-done">${list[i].taskContent}</div> 
             <div>
-            <button onclick="toggleComplete('${list[i].id}')">완료</button>
-            <button onclick="taskComplete('${list[i].id}')">삭제</button>
+            <button onclick="toggleComplete('${list[i].id}')" class="fas fa-check fa-2x" ></button>
+            <button onclick="taskComplete('${list[i].id}')" class="fas fa-ban fa-2x" ></button>
             </div>
-            </div>`    
+            </div>`
         }else {
             resultHTML += 
             `<div class="task-tap-user">
             <div>${list[i].taskContent}</div> 
             <div>
-            <button onclick="toggleComplete('${list[i].id}')">완료</button>
-            <button onclick="taskComplete('${list[i].id}')">삭제</button>
+            <button onclick="toggleComplete('${list[i].id}')" class="fas fa-check fa-2x" ></button>
+            <button onclick="taskComplete('${list[i].id}')" class="fas fa-ban fa-2x" ></button>
             </div>
             </div>`
         }
@@ -143,4 +143,3 @@ function filter(event){
     }
     console.log(filterList);
 }
-
